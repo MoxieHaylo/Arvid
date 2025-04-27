@@ -1143,13 +1143,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 898646512}
     m_Modifications:
+    - target: {fileID: 365741084931071375, guid: 41a06c9b8bef1ac4ba427c5560fbd04d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1091812260132615167, guid: 41a06c9b8bef1ac4ba427c5560fbd04d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3825193429265122770, guid: 41a06c9b8bef1ac4ba427c5560fbd04d, type: 3}
       propertyPath: m_Name
       value: Torch
       objectReference: {fileID: 0}
     - target: {fileID: 5525569052147529493, guid: 41a06c9b8bef1ac4ba427c5560fbd04d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.16
+      value: 0.79
       objectReference: {fileID: 0}
     - target: {fileID: 5525569052147529493, guid: 41a06c9b8bef1ac4ba427c5560fbd04d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4095,7 +4103,6 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   textBubble: {fileID: 252344455}
-  questManager: {fileID: 857062128}
   hasSpoken: 0
   hasQuests: 0
 --- !u!61 &684630850
@@ -6395,7 +6402,6 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   textBubble: {fileID: 1975999882}
-  questManager: {fileID: 857062128}
   hasSpoken: 0
   hasQuests: 0
 --- !u!61 &1197380147

@@ -1,13 +1,19 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Torch : MonoBehaviour, IInteractable
 {
-    void Start()
-    {
-        gameObject.transform.GetChild(0).gameObject.SetActive(false);
-    }
     public bool isLit = false;
+
+    public Canvas torchCanvas;
+    public Image staminaBar; // ← assign in Inspector!
+
+    private void Start()
+    {
+        torchCanvas.gameObject.SetActive(false);
+    }
+
     public void Interact(Transform interactorTransform)
     {
         if (!isLit)
@@ -15,23 +21,41 @@ public class Torch : MonoBehaviour, IInteractable
             LightTorch();
         }
     }
+
     void LightTorch()
     {
-        isLit=true;
+        isLit = true;
         Debug.Log("Torch lit");
-        gameObject.transform.GetChild(0).gameObject.SetActive(true);
-        StartCoroutine(TorchDecay());
-        //add visuals
-        //start timer with progress bar
-        //snuff out
-        //mark !isLit
-        //gameObject.transform.GetChild(0).gameObject.SetActive(false);
+
+        if (torchCanvas != null && staminaBar != null)
+        {
+            torchCanvas.gameObject.SetActive(true);
+            staminaBar.fillAmount = 1f; // Full at start
+        }
+
+        StartCoroutine(SmoothTorchDecay());
     }
-    IEnumerator TorchDecay()
+
+    IEnumerator SmoothTorchDecay()
     {
-        yield return new WaitForSeconds(5);
-        gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        Debug.Log("torch went out");
+        float totalTime = 5f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < totalTime)
+        {
+            elapsedTime += Time.deltaTime;
+            if (staminaBar != null)
+            {
+                staminaBar.fillAmount = Mathf.Lerp(1f, 0f, elapsedTime / totalTime);
+            }
+            yield return null;
+        }
+
+        if (torchCanvas != null)
+        {
+            torchCanvas.gameObject.SetActive(false);
+        }
+        Debug.Log("Torch went out");
         isLit = false;
     }
 }
