@@ -10,9 +10,11 @@ public class Torch : MonoBehaviour, IInteractable
     public bool isLit = false;
     public void Interact(Transform interactorTransform)
     {
-        LightTorch();
+        if (!isLit)
+        {
+            LightTorch();
+        }
     }
-
     void LightTorch()
     {
         isLit=true;
