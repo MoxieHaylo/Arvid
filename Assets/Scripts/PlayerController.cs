@@ -33,6 +33,10 @@ public class PlayerController : MonoBehaviour
         Move();
         Fly();
         CheckIfGrounded();
+        if(currentFlightStamina == maxFlightStamina)
+        {
+            flightStaminaBar.UpdateFlightStamina(1f);
+        }
     }
 
     //Move the player left and right
@@ -82,7 +86,6 @@ public class PlayerController : MonoBehaviour
         if (collider != null)
         {
             isGrounded = true;
-            //currentFlightStamina = maxFlightStamina;
         }
         else
         {
