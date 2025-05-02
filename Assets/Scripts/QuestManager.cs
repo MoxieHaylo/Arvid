@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
@@ -12,6 +12,11 @@ public class QuestManager : MonoBehaviour
     private Ladder ladder;
     private Chicken chicken;
 
+    [Header("★ Validation ★")]
+    public int maxValidation;
+    public int currentValidation;
+    public ValidationBar validationBar;
+
     private void Start()
     {
         ladder = FindFirstObjectByType<Ladder>();
@@ -24,6 +29,7 @@ public class QuestManager : MonoBehaviour
         {
             Debug.LogError("Chicken not found in scene");
         }
+        validationBar = FindFirstObjectByType<ValidationBar>();
     }
 
     void Update()
@@ -53,6 +59,9 @@ public class QuestManager : MonoBehaviour
         {
             tutorialComplete = true;
         }
+        validationBar.UpdateValidationBar((float)currentValidation/(float)maxValidation);
+        
+        
     }
 
     bool AllTorchesLit()

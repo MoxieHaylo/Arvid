@@ -15,6 +15,7 @@ public class NPCInteractable : MonoBehaviour, IInteractable
 
     public bool hasSpoken = false;
     public bool hasQuests = false;
+    bool gaveValidationRecently=false;
 
     private GameSettings gameSettings;
     private QuestManager questManager;
@@ -98,6 +99,7 @@ public class NPCInteractable : MonoBehaviour, IInteractable
     IEnumerator QuestTalk()
     {
         Debug.Log("gibbin ze questos");
+        gaveValidationRecently = false;
 
         if (gameSettings.isEnglish)
         {
@@ -113,10 +115,20 @@ public class NPCInteractable : MonoBehaviour, IInteractable
     }
     IEnumerator ThankPlayer()
     {
-        thanksEN.Invoke();
-        playerController.currentFlightStamina=playerController.maxFlightStamina;
-        yield return new WaitForSeconds(5);//cooldown so we don't end up in a quest loop
-        hasQuests = false;
-        yield break;
+        if (!gaveValidationRecently)
+        {
+            gaveValidationRecently = true;
+            thanksEN.Invoke();
+            playerController.currentFlightStamina = playerController.maxFlightStamina;
+            questManager.currentValidation++;
+            yield return new WaitForSeconds(5);//cooldown so we don't end up in a quest loop
+            hasQuests = false;
+            yield break;
+        }
+        else
+        {
+            Debug.Log("greedy. fuck off");
+            yield break;
+        }
     }
 }
