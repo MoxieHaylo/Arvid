@@ -7,7 +7,7 @@ public class Torch : MonoBehaviour, IInteractable
     public bool isLit = false;
 
     public Canvas torchCanvas;
-    public Image staminaBar; // ← assign in Inspector!
+    public Image staminaBar; 
 
     private void Start()
     {
@@ -38,7 +38,7 @@ public class Torch : MonoBehaviour, IInteractable
 
     IEnumerator SmoothTorchDecay()
     {
-        float totalTime = 5f;
+        float totalTime = 10f;
         float elapsedTime = 0f;
 
         while (elapsedTime < totalTime)

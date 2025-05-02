@@ -56,6 +56,12 @@ public class NPCInteractable : MonoBehaviour, IInteractable
             Debug.Log("Tutorial doneski");
             StartCoroutine(ThankPlayer());
         }
+        if (hasSpoken && !textBubble.isTalking && (CompareTag("Fetch NPC")) && questManager.fetchComplete)//super specific
+        {
+            //hasQuests = false;
+            Debug.Log("Fetch quest done");
+            StartCoroutine(ThankPlayer());
+        }
 
         if (!hasSpoken && !textBubble.isTalking)
         {
@@ -72,17 +78,6 @@ public class NPCInteractable : MonoBehaviour, IInteractable
         }
         if (hasSpoken && !textBubble.isTalking && !hasQuests)
         {
-            //Debug.Log("gibbin ze questos");
-            //hasQuests = true;
-            //if (gameSettings.isEnglish)
-            //{
-            //    giveQuestEN.Invoke();
-
-            //}
-            //if (gameSettings.isNorwegian)
-            //{
-            //    giveQuestNO.Invoke();
-            //}
             StartCoroutine(QuestTalk());
         }
     }
