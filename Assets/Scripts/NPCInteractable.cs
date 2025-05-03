@@ -20,6 +20,7 @@ public class NPCInteractable : MonoBehaviour, IInteractable
     private GameSettings gameSettings;
     private QuestManager questManager;
     private PlayerController playerController;
+    private ValidationBar validationBar;
 
     void Start()
     {
@@ -38,6 +39,7 @@ public class NPCInteractable : MonoBehaviour, IInteractable
         {
             Debug.LogError("Pop in a player dummy!");
         }
+        validationBar = FindFirstObjectByType<ValidationBar>();
 
     }
 
@@ -120,14 +122,25 @@ public class NPCInteractable : MonoBehaviour, IInteractable
             gaveValidationRecently = true;
             thanksEN.Invoke();
             playerController.currentFlightStamina = playerController.maxFlightStamina;
-            questManager.currentValidation++;
-            yield return new WaitForSeconds(5);//cooldown so we don't end up in a quest loop
-            hasQuests = false;
-            yield break;
+            if(questManager.currentValidation>5)
+            {
+                questManager.maxValidation+=2;
+                questManager.currentValidation++;
+                validationBar.GrowBy10Percent();
+                yield return new WaitForSeconds(5);//cooldown so we don't end up in a quest loop
+                hasQuests = false;
+                yield break;
+            }
+            else
+            {
+                questManager.currentValidation++;
+                yield return new WaitForSeconds(5);//cooldown so we don't end up in a quest loop
+                hasQuests = false;
+                yield break;
+            }
         }
         else
         {
-            Debug.Log("greedy. fuck off");
             yield break;
         }
     }

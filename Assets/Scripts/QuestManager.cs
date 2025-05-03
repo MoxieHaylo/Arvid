@@ -34,6 +34,11 @@ public class QuestManager : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyUp(KeyCode.V))
+        {
+            currentValidation++;
+            validationBar.GrowBy10Percent();
+        }
         // Always check torches every frame
         torchComplete = AllTorchesLit();
         fetchComplete = AllChickensCaught();
